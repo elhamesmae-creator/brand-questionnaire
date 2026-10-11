@@ -92,7 +92,7 @@ button:focus-visible{outline:3px solid var(--brass);outline-offset:2px}
 const RECEIVER_EMAIL = "elhamesmae@gmail.com";
 /* ========================================== */
 
-const SECTIONS=[["Faire connaissance","Getting to know you"],["Stratégie de marque","Brand strategy"],["Identité visuelle","Visual identity"],["Ton et langage","Voice and words"],["Site web et usages","Website and uses"]];
+const SECTIONS=[["Faire connaissance","Getting to know you"],["Stratégie de marque","Brand strategy"],["Identité visuelle","Visual identity"],["Ton et langage","Voice and words"],["Site web et usages","Website and uses"],["Boutique en ligne","Online store"]];
 
 const Q=[
  {id:"name",s:0,t:"text",req:1,fr:"Quel est votre nom?",en:"What's your name?"},
@@ -139,7 +139,7 @@ const Q=[
  {id:"goal",s:4,t:"many",req:1,other:1,fr:"Que doit faire le site web pour vous?",en:"What should the website do for you?",
   o:[["Vendre en ligne","Sell online"],["Prendre des rendez-vous ou réservations","Take bookings or appointments"],["Obtenir des demandes (contact / soumission)","Get leads (contact / quote requests)"],["Montrer mon portfolio","Show my portfolio"],["Inspirer confiance et informer","Build credibility and inform"]]},
  {id:"pages",s:4,t:"many",other:1,fr:"De quelles pages avez-vous besoin?",en:"Which pages do you need?",
-  o:[["Accueil","Home"],["À propos","About"],["Services / Produits","Services / Products"],["Portfolio","Portfolio"],["Témoignages","Testimonials"],["Blogue","Blog"],["FAQ","FAQ"],["Contact","Contact"]]},
+  o:[["Accueil","Home"],["À propos","About"],["Services / Produits","Services / Products"],["Portfolio","Portfolio"],["Témoignages","Testimonials"],["Blogue","Blog"],["FAQ","FAQ"],["Contact","Contact"],["Boutique / catalogue","Shop / catalog"],["Livraison et retours","Shipping and returns"]]},
  {id:"existing",s:4,t:"text",fr:"Avez-vous déjà un site web ou un nom de domaine?",en:"Do you have a current website or domain?",hfr:"Écrivez l'adresse, ou « aucun ».",hen:"Write the address, or \"none\"."},
  {id:"socials",s:4,t:"long",fr:"Vos comptes de réseaux sociaux",en:"Your social media handles or links"},
  {id:"materials",s:4,t:"many",fr:"En plus du site, de quoi d'autre avez-vous besoin?",en:"Besides the website, what else do you need?",
@@ -148,7 +148,31 @@ const Q=[
   o:[["Oui, tout est prêt","Yes, all ready"],["En partie","Partly"],["Non, j'ai besoin d'aide","No, I need help"]]},
  {id:"timeline",s:4,t:"one",fr:"Pour quand aimeriez-vous que ce soit prêt?",en:"When would you like it ready?",
   o:[["Le plus tôt possible","As soon as possible"],["D'ici un mois","Within a month"],["Dans 1 à 3 mois","1–3 months"],["Pas pressé","No rush"]]},
- {id:"extra",s:4,t:"long",fr:"Autre chose que nous devrions savoir?",en:"Anything else we should know?"}
+ {id:"products",s:5,t:"long",req:1,fr:"Que vendez-vous? Décrivez vos produits.",en:"What do you sell? Describe your products.",hfr:"Types de produits, catégories, ce qui les rend spéciaux.",hen:"Product types, categories, what makes them special."},
+ {id:"productCount",s:5,t:"one",req:1,fr:"Combien de produits voulez-vous mettre en ligne au départ?",en:"How many products do you want online at launch?",
+  o:[["Moins de 10","Fewer than 10"],["10 à 50","10–50"],["50 à 200","50–200"],["Plus de 200","More than 200"]]},
+ {id:"variants",s:5,t:"many",other:1,fr:"Vos produits ont-ils des variantes?",en:"Do your products come in variants?",
+  o:[["Tailles","Sizes"],["Couleurs","Colors"],["Saveurs / parfums","Flavors / scents"],["Produits personnalisés","Custom / personalized"],["Aucune variante","No variants"]]},
+ {id:"priceRange",s:5,t:"text",fr:"Quelle est la fourchette de prix de vos produits?",en:"What's the price range of your products?",hfr:"Ex. : de 15 $ à 80 $",hen:"e.g. $15 to $80"},
+ {id:"productPhotos",s:5,t:"one",req:1,fr:"Avez-vous des photos de vos produits?",en:"Do you have photos of your products?",
+  o:[["Oui, des photos professionnelles","Yes, professional photos"],["Oui, faites au téléphone","Yes, taken with a phone"],["Non, il faut les prendre","No, they need to be taken"]]},
+ {id:"shipping",s:5,t:"many",req:1,other:1,fr:"Où voulez-vous livrer?",en:"Where do you want to deliver?",
+  o:[["Cueillette sur place","Local pickup"],["Livraison locale (Montréal et environs)","Local delivery (Montreal area)"],["Partout au Québec","Across Quebec"],["Partout au Canada","Across Canada"],["États-Unis","United States"],["International","International"]]},
+ {id:"payments",s:5,t:"many",other:1,fr:"Quels modes de paiement voulez-vous offrir?",en:"Which payment methods do you want to offer?",
+  o:[["Carte de crédit / débit","Credit / debit card"],["Apple Pay / Google Pay","Apple Pay / Google Pay"],["PayPal","PayPal"],["Virement Interac","Interac e-Transfer"],["Paiement à la cueillette","Pay on pickup"]]},
+ {id:"platform",s:5,t:"one",fr:"Avez-vous une préférence de plateforme?",en:"Do you have a platform preference?",
+  o:[["Shopify","Shopify"],["WooCommerce (WordPress)","WooCommerce (WordPress)"],["Wix / Squarespace","Wix / Squarespace"],["Je ne sais pas, conseillez-moi","Not sure, advise me"]]},
+ {id:"sellElsewhere",s:5,t:"many",other:1,fr:"Vendez-vous déjà ailleurs?",en:"Do you already sell somewhere else?",
+  o:[["Magasin physique","Physical store"],["Boutique Instagram / Facebook","Instagram / Facebook shop"],["Etsy","Etsy"],["Amazon","Amazon"],["Marchés / événements","Markets / events"],["Nulle part encore","Nowhere yet"]]},
+ {id:"policies",s:5,t:"one",fr:"Avez-vous déjà une politique de retours et de livraison?",en:"Do you already have a returns and shipping policy?",
+  o:[["Oui, écrite","Yes, written"],["J'ai une idée, mais rien d'écrit","I have an idea but nothing written"],["Non, j'ai besoin d'aide","No, I need help"]]},
+ {id:"taxes",s:5,t:"one",fr:"Êtes-vous inscrit à la TPS/TVQ?",en:"Are you registered for GST/QST?",
+  o:[["Oui","Yes"],["Non","No"],["Je ne sais pas","Not sure"]]},
+ {id:"marketing",s:5,t:"many",fr:"Quels outils de vente voulez-vous sur la boutique?",en:"Which sales features do you want in the store?",
+  o:[["Codes promo","Discount codes"],["Infolettre / liste courriel","Newsletter / email list"],["Avis clients sur les produits","Product reviews"],["Cartes-cadeaux","Gift cards"],["Programme de fidélité","Loyalty program"]]},
+ {id:"manage",s:5,t:"one",fr:"Après le lancement, qui gérera les commandes et ajoutera les produits?",en:"After launch, who will handle orders and add products?",
+  o:[["Moi-même","Me"],["Quelqu'un de mon équipe","Someone on my team"],["J'aimerais que vous vous en occupiez","I'd like you to handle it"]]},
+ {id:"extra",s:5,t:"long",fr:"Autre chose que nous devrions savoir?",en:"Anything else we should know?"}
 ];
 
 let lang="fr",step=-1,A={},resumeStep=0,lastText="";
@@ -277,7 +301,7 @@ function renderIntro(app){
    <h1>${T("Apprenons à connaître votre marque","Let's get to know your brand")}</h1>
    <p>${T("Vos réponses serviront à créer un guide de marque et un site web faits sur mesure pour votre entreprise.","Your answers will shape a brand guide and website made specifically for your business.")}</p>
    <ol>
-    <li>${T(`${Q.length} questions en 5 parties — environ 15 à 20 minutes`,`${Q.length} questions in 5 parts — about 15–20 minutes`)}</li>
+    <li>${T(`${Q.length} questions en 6 parties — environ 20 à 25 minutes`,`${Q.length} questions in 6 parts — about 20–25 minutes`)}</li>
     <li>${T("Vous pouvez passer les questions facultatives","You can skip optional questions")}</li>
     <li>${T("Il n'y a pas de mauvaise réponse; plus vous donnez de détails, meilleur sera le résultat","There are no wrong answers; the more detail, the better the result")}</li>
    </ol>
