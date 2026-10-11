@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="color-scheme" content="only light">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Questionnaire de marque · Brand Questionnaire</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#FFFFFF;--slate:#D3ECF1;--paper:#134E5E;--card:#1D6478;--brass:#FFC857;--line:#4F93A6;--err:#FFD1C9;--selbg:#2A7A90;color-scheme:only light}
+html,body,.wrap{background:#134E5E!important;color:#FFFFFF!important}
+.btn.primary,.dots button.sel{background:#FFC857!important;border-color:#FFC857!important;color:#1A1A1A!important}
+.opt.sel{border-color:#FFC857!important;background:#2A7A90!important;color:#FFFFFF!important}
+.opt.sel .box{background:#FFC857!important;border-color:#FFC857!important;box-shadow:inset 0 0 0 3px #2A7A90!important}
+.opt,.dots button,input[type=text],textarea{background:#1D6478!important;color:#FFFFFF!important}
+input::placeholder,textarea::placeholder{color:#A9D3DD!important}
+.opt .box{border-color:#D3ECF1!important}
+.progress{background:#2E6E80!important}.progress i{background:#FFC857!important}
+.toast{background:#FFC857!important;color:#1A1A1A!important}
+.lang{border:2px solid #FFC857!important}
+.lang button{background:#2E9E5B!important;color:#FFFFFF!important;font-weight:600}
+.lang button.on{background:#FFC857!important;color:#1A1A1A!important}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--paper);color:var(--ink);font-family:"Inter",system-ui,sans-serif;line-height:1.6}
+.wrap{max-width:640px;margin:0 auto;padding:20px 20px 40px;min-height:100vh;display:flex;flex-direction:column}
+header{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.mark{font-weight:700;font-size:15px}.mark span{color:var(--brass)}
+.lang{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}
+.lang button{border:0;background:transparent;padding:6px 14px;font:inherit;font-size:13px;color:var(--slate);cursor:pointer}
+.lang button.on{background:var(--ink);color:#fff}
+.progress{margin:22px 0 6px;height:4px;background:var(--line);border-radius:4px;overflow:hidden}
+.progress i{display:block;height:100%;width:0;background:var(--brass);transition:width .3s}
+.meta{display:flex;justify-content:space-between;font-size:13px;color:var(--slate)}
+main{flex:1;display:flex;flex-direction:column;justify-content:center;padding:28px 0}
+.sec{font-size:13px;color:var(--brass);font-weight:700;margin-bottom:10px}
+h1{font-family:"Fraunces",Georgia,serif;font-weight:700;margin:0 0 10px;line-height:1.3}
+h1.q{font-size:clamp(22px,5vw,30px);color:var(--ink)}
+.opt-tag{font-family:"Inter",sans-serif;font-weight:400;font-size:.5em;color:var(--slate)}
+.hint{color:var(--slate);font-size:16px;margin:0 0 22px}
+input[type=text],textarea{width:100%;font:inherit;font-size:17px;color:var(--ink);background:var(--card);border:1.5px solid var(--line);border-radius:10px;padding:14px 16px;outline:none}
+textarea{min-height:140px;resize:vertical}
+input:focus,textarea:focus{border-color:var(--brass);box-shadow:0 0 0 3px var(--selbg)}
+input::placeholder{color:#6B7585}
+.opts{display:grid;gap:10px}
+.opt{color:var(--ink);display:flex;align-items:center;gap:12px;background:var(--card);border:1.5px solid var(--line);border-radius:10px;padding:13px 16px;cursor:pointer;font:inherit;font-size:16px;text-align:start;color:var(--ink)}
+.opt .box{width:20px;height:20px;border:1.5px solid var(--slate);flex:none;border-radius:50%}
+.opt.multi .box{border-radius:5px}
+.opt.sel{border-color:var(--brass);background:var(--selbg);font-weight:600}
+.opt.sel .box{background:var(--brass);border-color:var(--brass);box-shadow:inset 0 0 0 3px var(--selbg)}
+.other{margin-top:10px}
+.scale{display:grid;gap:22px}
+.srow label{display:flex;justify-content:space-between;font-size:14px;color:var(--slate);margin-bottom:6px}
+.dots{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.dots button{height:44px;border:1.5px solid var(--line);background:var(--card);border-radius:8px;cursor:pointer;font:inherit;color:var(--slate)}
+.dots button.sel{background:var(--brass);color:#fff;border-color:var(--brass)}
+.nav{display:flex;gap:12px;align-items:center;margin-top:28px}
+.btn{font:inherit;font-weight:700;font-size:16px;border-radius:10px;padding:13px 26px;cursor:pointer;border:1.5px solid var(--ink)}
+.btn.primary{background:var(--brass);color:#fff;border-color:var(--brass)}.btn.ghost{background:transparent;color:var(--ink);border-color:var(--ink)}
+.btn:disabled{opacity:.4;cursor:default}.small{font-size:14px;padding:9px 16px}
+.skip{margin-inline-start:auto;font-size:14px;color:var(--slate);background:none;border:0;cursor:pointer;font-family:inherit}
+.err{color:var(--err);font-size:14px;margin-top:10px;min-height:20px}
+button:focus-visible{outline:3px solid var(--brass);outline-offset:2px}
+.intro h1{font-size:clamp(28px,7vw,40px)}
+.intro p,.intro li{color:var(--slate);font-size:17px}
+.intro ol{padding-inline-start:20px;margin:16px 0 28px}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 18px;border-radius:8px;font-size:14px;opacity:0;transition:opacity .2s;pointer-events:none}
+.toast.on{opacity:1}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="mark" id="mark"></div>
+    <div class="lang" role="group" aria-label="Langue / Language">
+      <button data-l="fr">Français</button><button data-l="en">English</button>
+    </div>
+  </header>
+  <div id="prog" hidden>
+    <div class="progress"><i id="bar"></i></div>
+    <div class="meta"><span id="secName"></span><span id="count"></span></div>
+  </div>
+  <main id="app"></main>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ============ RÉGLAGE / SETTING ============
+   Mettez ici l'adresse courriel qui reçoit les réponses.
+   Put the email address that should receive the answers here. */
+const RECEIVER_EMAIL = "elhamesmae@gmail.com";
+/* ========================================== */
+
+const SECTIONS=[["Faire connaissance","Getting to know you"],["Stratégie de marque","Brand strategy"],["Identité visuelle","Visual identity"],["Ton et langage","Voice and words"],["Site web et usages","Website and uses"]];
+
+const Q=[
+ {id:"name",s:0,t:"text",req:1,fr:"Quel est votre nom?",en:"What's your name?"},
+ {id:"contact",s:0,t:"text",req:1,fr:"Votre courriel ou numéro de téléphone",en:"Your email or phone number",hfr:"Pour vous recontacter après avoir lu vos réponses.",hen:"So we can follow up after reviewing your answers."},
+ {id:"biz",s:0,t:"text",req:1,fr:"Quel est le nom de votre entreprise?",en:"What's your business called?"},
+ {id:"what",s:0,t:"long",req:1,fr:"Que fait votre entreprise, exactement?",en:"What does your business do, exactly?",hfr:"Expliquez-le comme vous le feriez à un ami.",hen:"Explain it the way you would to a friend."},
+ {id:"where",s:0,t:"text",fr:"Où êtes-vous actif, et depuis quand?",en:"Where do you operate, and since when?",hfr:"Ex. : Montréal depuis 2022, ou en ligne partout au Canada",hen:"e.g. Montreal since 2022, or online across Canada"},
+
+ {id:"why",s:1,t:"long",req:1,fr:"Pourquoi avez-vous lancé cette entreprise?",en:"Why did you start this business?",hfr:"L'histoire derrière le projet. Elle servira de base à votre mission.",hen:"The story behind it. This becomes the base of your mission."},
+ {id:"problem",s:1,t:"long",req:1,fr:"Quel problème réglez-vous pour vos clients?",en:"What problem do you solve for your customers?"},
+ {id:"vision",s:1,t:"long",fr:"Où voulez-vous que votre entreprise soit dans 5 à 10 ans?",en:"Where do you want the business to be in 5–10 years?"},
+ {id:"values",s:1,t:"many",max:5,other:1,fr:"Quelles valeurs vous décrivent le mieux?",en:"Which values describe you best?",hfr:"Choisissez-en jusqu'à 5.",hen:"Pick up to 5.",
+  o:[["Honnêteté","Honesty"],["Qualité","Quality"],["Innovation","Innovation"],["Simplicité","Simplicity"],["Rapidité","Speed"],["Fiabilité","Reliability"],["Créativité","Creativity"],["Chaleur humaine","Warmth"],["Luxe","Luxury"],["Durabilité","Sustainability"],["Communauté","Community"],["Expertise","Expertise"]]},
+ {id:"age",s:1,t:"many",fr:"Quel âge ont généralement vos principaux clients?",en:"How old are your main customers, usually?",
+  o:[["Moins de 18 ans","Under 18"],["18–24","18–24"],["25–34","25–34"],["35–44","35–44"],["45–54","45–54"],["55 ans et plus","55+"],["Des entreprises, pas des particuliers","Businesses, not individuals"]]},
+ {id:"customer",s:1,t:"long",req:1,fr:"Décrivez votre client idéal.",en:"Describe your ideal customer.",hfr:"Métier, style de vie, intérêts et ce qui compte pour lui.",hen:"Job, lifestyle, interests, and what matters to them."},
+ {id:"pains",s:1,t:"long",fr:"Quelles inquiétudes ou frustrations ont-ils avant de vous trouver?",en:"What worries or frustrations do they have before they find you?"},
+ {id:"channels",s:1,t:"many",other:1,fr:"Où vos clients passent-ils du temps ou vous trouvent-ils?",en:"Where do your customers spend time or find you?",
+  o:[["Instagram","Instagram"],["Facebook","Facebook"],["LinkedIn","LinkedIn"],["TikTok","TikTok"],["YouTube","YouTube"],["Recherche Google","Google search"],["Google Maps","Google Maps"],["WhatsApp","WhatsApp"],["Bouche-à-oreille","Word of mouth"]]},
+ {id:"competitors",s:1,t:"long",fr:"Qui sont vos principaux concurrents?",en:"Who are your main competitors?",hfr:"Noms ou liens, et ce que vous aimez ou n'aimez pas chez eux.",hen:"Names or links, and what you like or dislike about them."},
+ {id:"diff",s:1,t:"long",req:1,fr:"Pourquoi un client devrait-il vous choisir plutôt qu'un concurrent?",en:"Why should a customer choose you over a competitor?",hfr:"Soyez précis. « Bonne qualité » ne suffit pas : qu'est-ce qui, exactement?",hen:"Be specific. \"High quality\" isn't enough — what exactly?"},
+ {id:"praise",s:1,t:"long",fr:"Pour quoi vos clients vous complimentent-ils le plus souvent?",en:"What do customers usually praise you for?"},
+
+ {id:"logo",s:2,t:"one",req:1,fr:"Où en êtes-vous avec votre logo?",en:"Where are you with your logo?",
+  o:[["J'en ai un et je veux le garder","I have one and want to keep it"],["J'en ai un, mais il a besoin d'une mise à jour","I have one but it needs a refresh"],["Je n'ai pas de logo","I don't have a logo"]]},
+ {id:"feel",s:2,t:"scale",fr:"Quelle impression votre marque doit-elle donner?",en:"How should your brand feel?",hfr:"Pour chaque ligne, choisissez un point entre les deux extrêmes.",hen:"Choose a point between the two ends on each row.",
+  rows:[[["Classique","Classic"],["Moderne","Modern"]],[["Ludique","Playful"],["Sérieuse","Serious"]],[["Luxueuse","Luxury"],["Accessible","Accessible"]],[["Minimaliste et calme","Minimal, calm"],["Audacieuse et énergique","Bold, energetic"]],[["Chaleureuse","Warm, personal"],["Corporative","Corporate"]]]},
+ {id:"colorsLike",s:2,t:"text",fr:"Quelles couleurs aimez-vous pour votre marque?",en:"Which colors do you like for your brand?",hfr:"Indiquez aussi les couleurs que vous utilisez déjà.",hen:"Include any colors you already use."},
+ {id:"colorsAvoid",s:2,t:"text",fr:"Y a-t-il des couleurs que vous ne voulez surtout pas?",en:"Any colors you definitely don't want?"},
+ {id:"imagery",s:2,t:"many",fr:"Quel style d'images convient à votre marque?",en:"Which image style fits your brand?",
+  o:[["Vraies photos de moi / l'équipe / le lieu","Real photos of me / team / workplace"],["Photos de produits","Product photos"],["Illustrations et graphiques","Illustration and graphics"],["Lumineux et aéré","Bright and airy"],["Sombre et dramatique","Dark and dramatic"],["Tons chauds","Warm tones"],["Tons froids","Cool tones"],["Minimaliste, beaucoup d'espace","Minimal with lots of space"]]},
+ {id:"inspo",s:2,t:"long",fr:"Y a-t-il des marques ou des sites web dont vous aimez le style?",en:"Any brands or websites whose look you love?",hfr:"Collez les liens et dites ce que vous aimez. Pas besoin qu'ils soient dans votre domaine.",hen:"Paste links and say what you like. They don't need to be in your industry."},
+
+ {id:"adjectives",s:3,t:"text",req:1,fr:"Si votre marque était une personne, quels trois mots la décriraient?",en:"If your brand were a person, which three words would describe it?",hfr:"Ex. : confiante, rassurante, sans prétention",hen:"e.g. confident, reassuring, down-to-earth"},
+ {id:"tone",s:3,t:"one",fr:"Comment votre marque doit-elle parler à ses clients?",en:"How should your brand talk to customers?",
+  o:[["Amicale et décontractée","Friendly and casual"],["Professionnelle et directe","Professional and direct"],["Inspirante et motivante","Inspiring and uplifting"],["Drôle et pleine d'esprit","Witty and fun"],["Formelle et respectueuse","Formal and respectful"]]},
+ {id:"address",s:3,t:"one",fr:"Comment s'adresser aux clients?",en:"How should we address customers?",
+  o:[["Vouvoiement (vous)","Formal (vous)"],["Tutoiement (tu)","Casual (tu / first name)"],["Peu importe","No preference"]]},
+ {id:"contentLangs",s:3,t:"many",other:1,fr:"Dans quelles langues votre contenu doit-il être?",en:"Which languages should your content be in?",
+  o:[["Français","French"],["Anglais","English"]]},
+ {id:"avoidWords",s:3,t:"long",fr:"Y a-t-il des mots, expressions ou styles à ne jamais utiliser?",en:"Any words, phrases or styles your brand should never use?"},
+ {id:"slogan",s:3,t:"long",fr:"Avez-vous un slogan ou une phrase en tête?",en:"Do you have a slogan or phrase in mind?",hfr:"Même une idée à moitié formée nous aide.",hen:"Even a half-formed idea helps."},
+
+ {id:"goal",s:4,t:"many",req:1,other:1,fr:"Que doit faire le site web pour vous?",en:"What should the website do for you?",
+  o:[["Vendre en ligne","Sell online"],["Prendre des rendez-vous ou réservations","Take bookings or appointments"],["Obtenir des demandes (contact / soumission)","Get leads (contact / quote requests)"],["Montrer mon portfolio","Show my portfolio"],["Inspirer confiance et informer","Build credibility and inform"]]},
+ {id:"pages",s:4,t:"many",other:1,fr:"De quelles pages avez-vous besoin?",en:"Which pages do you need?",
+  o:[["Accueil","Home"],["À propos","About"],["Services / Produits","Services / Products"],["Portfolio","Portfolio"],["Témoignages","Testimonials"],["Blogue","Blog"],["FAQ","FAQ"],["Contact","Contact"]]},
+ {id:"existing",s:4,t:"text",fr:"Avez-vous déjà un site web ou un nom de domaine?",en:"Do you have a current website or domain?",hfr:"Écrivez l'adresse, ou « aucun ».",hen:"Write the address, or \"none\"."},
+ {id:"socials",s:4,t:"long",fr:"Vos comptes de réseaux sociaux",en:"Your social media handles or links"},
+ {id:"materials",s:4,t:"many",fr:"En plus du site, de quoi d'autre avez-vous besoin?",en:"Besides the website, what else do you need?",
+  o:[["Cartes d'affaires","Business cards"],["Gabarits de publications Instagram","Instagram post templates"],["Signature courriel","Email signature"],["Gabarit de présentation","Presentation template"],["Emballage / étiquettes","Packaging / labels"],["Menu ou dépliant","Menu or brochure"]]},
+ {id:"contentReady",s:4,t:"one",fr:"Les textes et photos du site sont-ils prêts?",en:"Are the website texts and photos ready?",
+  o:[["Oui, tout est prêt","Yes, all ready"],["En partie","Partly"],["Non, j'ai besoin d'aide","No, I need help"]]},
+ {id:"timeline",s:4,t:"one",fr:"Pour quand aimeriez-vous que ce soit prêt?",en:"When would you like it ready?",
+  o:[["Le plus tôt possible","As soon as possible"],["D'ici un mois","Within a month"],["Dans 1 à 3 mois","1–3 months"],["Pas pressé","No rush"]]},
+ {id:"extra",s:4,t:"long",fr:"Autre chose que nous devrions savoir?",en:"Anything else we should know?"}
+];
+
+let lang="fr",step=-1,A={},resumeStep=0,lastText="";
+const $=id=>document.getElementById(id);
+const T=(fr,en)=>lang==="fr"?fr:en;
+const L=o=>lang==="fr"?o[0]:o[1];
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function toast(m){const t=$("toast");t.textContent=m;t.classList.add("on");setTimeout(()=>t.classList.remove("on"),1800)}
+
+/* brouillon local / local draft (works once hosted on a normal website) */
+function saveDraft(){try{localStorage.setItem("bq-draft",JSON.stringify({A,step,lang}))}catch(e){}}
+function loadDraft(){try{const d=JSON.parse(localStorage.getItem("bq-draft"));if(d){A=d.A||{};return d}}catch(e){}return null}
+function clearDraft(){try{localStorage.removeItem("bq-draft")}catch(e){}}
+
+function setLang(l){
+  lang=l;document.documentElement.lang=l;
+  document.querySelectorAll(".lang button").forEach(b=>b.classList.toggle("on",b.dataset.l===l));
+  $("mark").innerHTML=T("Questionnaire <span>de marque</span>","Brand <span>questionnaire</span>");
+  render();
+}
+document.querySelectorAll(".lang button").forEach(b=>b.onclick=()=>setLang(b.dataset.l));
+
+function filledV(q,v){
+  if(q.t==="one") return v!==undefined&&v!==null;
+  if(q.t==="many") return v&&(v.sel.length||(v.other||"").trim());
+  if(q.t==="scale") return v&&Object.keys(v).length;
+  return v&&String(v).trim();
+}
+
+function render(){
+  const app=$("app");
+  $("prog").hidden=step<0||step>=Q.length;
+  if(step<0) return renderIntro(app);
+  if(step>=Q.length) return;
+  const q=Q[step],v=A[q.id];
+  $("bar").style.width=(step/Q.length*100)+"%";
+  $("secName").textContent=`${q.s+1}. ${L(SECTIONS[q.s])}`;
+  $("count").textContent=T(`Question ${step+1} sur ${Q.length}`,`Question ${step+1} of ${Q.length}`);
+  let h=`<div class="sec">${T("Partie","Part")} ${q.s+1} — ${L(SECTIONS[q.s])}</div>
+   <h1 class="q" id="qt">${T(q.fr,q.en)}${q.req?"":` <span class="opt-tag">(${T("facultatif","optional")})</span>`}</h1>`;
+  h+=q.hfr?`<p class="hint">${T(q.hfr,q.hen)}</p>`:`<div style="height:12px"></div>`;
+  if(q.t==="text") h+=`<input type="text" id="inp" aria-labelledby="qt" value="${esc(v||"")}">`;
+  else if(q.t==="long") h+=`<textarea id="inp" aria-labelledby="qt">${esc(v||"")}</textarea>`;
+  else if(q.t==="one"||q.t==="many"){
+    const sel=q.t==="one"?[v]:(v?.sel||[]);
+    h+=`<div class="opts" role="${q.t==="one"?"radiogroup":"group"}" aria-labelledby="qt">`+q.o.map((o,i)=>
+     `<button class="opt ${q.t==="many"?"multi":""} ${sel.includes(i)?"sel":""}" data-i="${i}" role="${q.t==="one"?"radio":"checkbox"}" aria-checked="${sel.includes(i)}"><span class="box"></span>${L(o)}</button>`).join("")+`</div>`;
+    if(q.other) h+=`<input type="text" class="other" id="other" placeholder="${T("Autre (facultatif)","Something else (optional)")}" value="${esc(v?.other||"")}">`;
+  } else if(q.t==="scale"){
+    const vals=v||{};
+    h+=`<div class="scale">`+q.rows.map((r,ri)=>`<div class="srow"><label><span>${L(r[0])}</span><span>${L(r[1])}</span></label>
+     <div class="dots">${[1,2,3,4,5].map(n=>`<button data-r="${ri}" data-n="${n}" class="${vals[ri]===n?"sel":""}" aria-label="${L(r[0])} – ${L(r[1])} : ${n}">${n}</button>`).join("")}</div></div>`).join("")+`</div>`;
+  }
+  h+=`<div class="err" id="err" role="alert"></div>
+   <div class="nav">
+    <button class="btn ghost" id="back" ${step===0?"disabled":""}>${T("Précédent","Back")}</button>
+    <button class="btn primary" id="next">${step===Q.length-1?T("Envoyer mes réponses","Send my answers"):T("Suivant","Next")}</button>
+    ${q.req?"":`<button class="skip" id="skip">${T("Passer","Skip")}</button>`}
+   </div>`;
+  app.innerHTML=h;
+  bind(q);
+}
+
+function bind(q){
+  const inp=$("inp");
+  if(inp){inp.focus();inp.oninput=()=>A[q.id]=inp.value;if(q.t!=="long")inp.onkeydown=e=>{if(e.key==="Enter")next()}}
+  document.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{
+    const i=+b.dataset.i;
+    if(q.t==="one"){A[q.id]=i;render();return}
+    const cur=A[q.id]||{sel:[],other:""},s=cur.sel;
+    if(s.includes(i)) s.splice(s.indexOf(i),1);
+    else{if(q.max&&s.length>=q.max){$("err").textContent=T(`${q.max} choix maximum`,`Up to ${q.max} choices`);return}s.push(i)}
+    A[q.id]=cur;render();
+  });
+  const oth=$("other");if(oth)oth.oninput=()=>{const cur=A[q.id]||{sel:[],other:""};cur.other=oth.value;A[q.id]=cur};
+  document.querySelectorAll(".dots button").forEach(b=>b.onclick=()=>{const cur=A[q.id]||{};cur[+b.dataset.r]=+b.dataset.n;A[q.id]=cur;render()});
+  $("back").onclick=()=>{step--;saveDraft();render()};
+  $("next").onclick=next;
+  if($("skip"))$("skip").onclick=()=>{step++;saveDraft();step>=Q.length?submit():render()};
+}
+
+function next(){
+  const q=Q[step];
+  if(q.req&&!filledV(q,A[q.id])){$("err").textContent=T("Merci de répondre à cette question.","Please answer this question.");return}
+  step++;saveDraft();
+  step>=Q.length?submit():render();
+}
+
+/* Le texte envoyé est toujours bilingue-lisible : question FR + EN / Sent text shows each question in FR + EN */
+function fmt(q,v){
+  if(!filledV(q,v)) return "—";
+  if(q.t==="one") return `${q.o[v][0]} / ${q.o[v][1]}`;
+  if(q.t==="many") return [...v.sel.map(i=>q.o[i][1]),...((v.other||"").trim()?[v.other.trim()]:[])].join(", ");
+  if(q.t==="scale") return q.rows.map((r,i)=>`  ${r[0][1]} ${[1,2,3,4,5].map(n=>v[i]===n?"●":"○").join("")} ${r[1][1]}`).join("\n");
+  return String(v).trim();
+}
+function toText(){
+  let out=`BRAND QUESTIONNAIRE — ${A.biz||""}\nLangue du client / Client language: ${lang==="fr"?"Français":"English"}\n`;
+  let cur=-1;
+  Q.forEach(q=>{
+    if(q.s!==cur){cur=q.s;out+=`\n━━ ${cur+1}. ${SECTIONS[cur][1]} ━━\n`}
+    out+=`\n▸ ${q.en}\n${fmt(q,A[q.id])}\n`;
+  });
+  return out;
+}
+
+async function submit(){
+  const app=$("app");$("prog").hidden=true;
+  app.innerHTML=`<p class="hint">${T("Envoi en cours…","Sending…")}</p>`;
+  lastText=toText();
+  let ok=false;
+  try{
+    const r=await fetch("https://formsubmit.co/ajax/"+encodeURIComponent(RECEIVER_EMAIL),{
+      method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},
+      body:JSON.stringify({_subject:`Brand questionnaire — ${A.biz||A.name||"New client"}`,_template:"box",_captcha:"false",
+        Name:A.name||"",Contact:A.contact||"",Business:A.biz||"",Answers:lastText})});
+    const d=await r.json().catch(()=>({}));
+    ok=r.ok&&String(d.success)==="true";
+  }catch(e){ok=false}
+  if(ok) clearDraft();
+  renderDone(app,ok);
+}
+
+function renderIntro(app){
+  app.innerHTML=`<div class="intro">
+   <h1>${T("Apprenons à connaître votre marque","Let's get to know your brand")}</h1>
+   <p>${T("Vos réponses serviront à créer un guide de marque et un site web faits sur mesure pour votre entreprise.","Your answers will shape a brand guide and website made specifically for your business.")}</p>
+   <ol>
+    <li>${T(`${Q.length} questions en 5 parties — environ 15 à 20 minutes`,`${Q.length} questions in 5 parts — about 15–20 minutes`)}</li>
+    <li>${T("Vous pouvez passer les questions facultatives","You can skip optional questions")}</li>
+    <li>${T("Il n'y a pas de mauvaise réponse; plus vous donnez de détails, meilleur sera le résultat","There are no wrong answers; the more detail, the better the result")}</li>
+   </ol>
+   <button class="btn primary" id="start">${Object.keys(A).length?T("Reprendre où j'étais","Continue where I left off"):T("Commencer","Start")}</button>
+  </div>`;
+  $("start").onclick=()=>{step=resumeStep||0;render()};
+}
+
+function renderDone(app,ok){
+  app.innerHTML=`<div>
+   <h1>${ok?T("Merci! Vos réponses ont été envoyées.","Thank you! Your answers were sent."):T("L'envoi n'a pas fonctionné.","Sending didn't work.")}</h1>
+   <p class="hint">${ok?T("Nous vous recontacterons après les avoir lues.","We'll be in touch once we've reviewed them.")
+     :T("Vos réponses ne sont pas perdues. Réessayez, ou copiez-les et envoyez-les-nous par courriel ou texto.","Your answers aren't lost. Try again, or copy them and send them to us by email or text.")}</p>
+   <div class="row">
+    ${ok?"":`<button class="btn primary small" id="retry">${T("Réessayer","Try again")}</button>`}
+    <button class="btn ghost small" id="copy">${T("Copier mes réponses","Copy my answers")}</button>
+    ${ok?"":`<a class="btn ghost small" style="text-decoration:none" href="mailto:${RECEIVER_EMAIL}?subject=${encodeURIComponent("Brand questionnaire — "+(A.biz||""))}">${T("Ouvrir mon courriel","Open my email")}</a>`}
+   </div></div>`;
+  $("copy").onclick=async()=>{try{await navigator.clipboard.writeText(lastText)}catch(e){const t=document.createElement("textarea");t.value=lastText;document.body.appendChild(t);t.select();document.execCommand("copy");t.remove()}toast(T("Copié","Copied"))};
+  if($("retry"))$("retry").onclick=submit;
+}
+
+(function(){
+  const d=loadDraft();
+  if(d){resumeStep=Math.min(Math.max(d.step,0),Q.length-1);if(d.lang)lang=d.lang}
+  else if((navigator.language||"").toLowerCase().startsWith("en")) lang="en";
+  setLang(lang);
+})();
+</script>
+</body>
+</html>
